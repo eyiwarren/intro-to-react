@@ -13,16 +13,17 @@ import React, { Component } from 'react';
        ],
         newTodoDescription: ''
 
-      };
-        this.deleteToDo = this.deleteToDo.bind(this)
-
+     };
+     this.deleteTodo = this.deleteTodo.bind(this);
    }
 
-   deleteToDo(index) {
-     this.setState({
-         todos: this.state.todos.filter((_, i) => i !== index)
-     });
- }
+
+   deleteTodo(index) {
+   this.setState({
+       todos: this.state.todos.filter(i => i !== index)
+   })
+
+   }
 
 
    handleChange(e) {
@@ -44,22 +45,23 @@ import React, { Component } from 'react';
   }
 
    render() {
+     var { todos } = this.state;
      return (
        <div className="App">
          <ul>
           { this.state.todos.map( (todo, index) =>
-            <ToDo key={ index } description={ todo.description } isCompleted={ todo.isCompleted } toggleComplete={ () => this.toggleComplete(index) } />
+            <ToDo key={ index } description={ todo.description } isCompleted={ todo.isCompleted } toggleComplete={ () => this.toggleComplete(index) }
+             deleteTodo={this.deleteTodo} />
           )}
+
         </ul>
          <form onSubmit={ (e) => this.handleSubmit(e) }>
          <input type="text" value={ this.state.newTodoDescription } onChange={ (e) => this.handleChange(e) } />
          <input type="submit" />
-         </form>
-        <ToDo todos={this.state.todos} deleteToDo={this.deleteToDo} />
+       </form>
      </div>
     );
    }
  }
-
 
 export default App;

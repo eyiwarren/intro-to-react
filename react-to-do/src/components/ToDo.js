@@ -1,22 +1,27 @@
 import React, { Component } from 'react';
 
  class ToDo extends Component {
+   constructor(props) {
+    super(props);
+  }
 
-     render() {
+  removeTodo(index) {
+  this.props.deleteTodo(index);
+  }
+
+   render() {
      return (
-       <ul>
+
        <li>
-         <input type="checkbox" checked={ this.props.isCompleted } onChange={ this.props.toggleComplete } />
+         <input type="checkbox" checked={ this.props.isCompleted }
+         onChange={ this.props.toggleComplete } />
          <span>{ this.props.description }</span>
          </li>
-         { this.state.todos.map((todo, index) => {
-          return <li onClick={(e) => { this.deleteToDo(index)}} key={todo}>{ todo }</li>
-            })}
-         </ul>
-     );
+         <button onClick={(e)=> this.deleteTodo(this.props.index) }>
+         remove</button>{this.props.todo.description}
 
+     );
    }
  }
-
 
  export default ToDo;
