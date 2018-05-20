@@ -7,26 +7,19 @@ import React, { Component } from 'react';
      super(props);
      this.state = {
        todos: [
-         { description: 'Walk the cat', isCompleted: true },
-         { description: 'Throw the dishes away', isCompleted: false },
-         { description: 'Buy new dishes', isCompleted: false }
-       ],
-        newTodoDescription: ''
+    { id: 1, description: 'Walk the cat', isCompleted: true },
+    { id: 2, description: 'Throw the dishes away', isCompleted: false },
+    { id: 3, description: 'Buy new dishes', isCompleted: false }
+  ],
+        newTodoDescription: '',
 
      };
+
      this.deleteTodo = this.deleteTodo.bind(this);
+     this.toggleComplete = this.toggleComplete.bind(this)
    }
 
-
-   deleteTodo(index) {
-   this.setState({
-       todos: this.state.todos.filter(i => i !== index)
-   })
-
-   }
-
-
-   handleChange(e) {
+     handleChange(e) {
         this.setState({ newTodoDescription: e.target.value })
       }
 
@@ -42,16 +35,26 @@ import React, { Component } from 'react';
     const todo = todos[index];
     todo.isCompleted = todo.isCompleted ? false : true;
     this.setState({ todos: todos });
+
   }
 
+  deleteTodo (id) {
+
+  this.setState({
+      todos: this.state.todos.filter((todo, index) => todo.id !== id)
+    });
+  }
+
+
    render() {
-     var { todos } = this.state;
+
      return (
+      
        <div className="App">
          <ul>
-          { this.state.todos.map( (todo, index) =>
-            <ToDo key={ index } description={ todo.description } isCompleted={ todo.isCompleted } toggleComplete={ () => this.toggleComplete(index) }
-             deleteTodo={this.deleteTodo} />
+          { this.state.todos.map( (todo, id) =>
+            <ToDo key={ todo.id } description={ todo.description } isCompleted={ todo.isCompleted } toggleComplete={ () => this.toggleComplete(id) }
+            id={todo.id} todos={this.state.todos} deleteTodo={this.deleteTodo} />
           )}
 
         </ul>
