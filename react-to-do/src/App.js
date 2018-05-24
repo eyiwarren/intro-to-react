@@ -2,6 +2,8 @@ import React, { Component } from 'react';
  import './App.css';
  import ToDo from './components/ToDo.js';
 
+
+
  class App extends Component {
    constructor(props) {
      super(props);
@@ -12,7 +14,7 @@ import React, { Component } from 'react';
     { id: 3, description: 'Buy new dishes', isCompleted: false }
   ],
         newTodoDescription: '',
-
+        id:4
      };
 
      this.deleteTodo = this.deleteTodo.bind(this);
@@ -26,8 +28,10 @@ import React, { Component } from 'react';
    handleSubmit(e) {
         e.preventDefault();
         if (!this.state.newTodoDescription) { return }
-        const newTodo = { description: this.state.newTodoDescription, isCompleted: false };
-     this.setState({ todos: [...this.state.todos, newTodo], newTodoDescription: '' });
+        let id = this.state.id;
+        const newTodo = { description: this.state.newTodoDescription, id: this.state.id, isCompleted: false };
+        id++;
+     this.setState({ todos: [...this.state.todos, newTodo], newTodoDescription: '', id: id });
       }
 
    toggleComplete(index) {
@@ -39,22 +43,21 @@ import React, { Component } from 'react';
   }
 
   deleteTodo (id) {
-
-  this.setState({
+    this.setState({
       todos: this.state.todos.filter((todo, index) => todo.id !== id)
     });
+
   }
 
-
-   render() {
+    render() {
 
      return (
-      
+
        <div className="App">
          <ul>
           { this.state.todos.map( (todo, id) =>
             <ToDo key={ todo.id } description={ todo.description } isCompleted={ todo.isCompleted } toggleComplete={ () => this.toggleComplete(id) }
-            id={todo.id} todos={this.state.todos} deleteTodo={this.deleteTodo} />
+             id={todo.id}  deleteTodo={this.deleteTodo} />
           )}
 
         </ul>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 class ToDo extends Component {
-  
+
 
  deleteTodo(id) {
      this.props.deleteTodo(id);
